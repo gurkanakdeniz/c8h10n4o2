@@ -46,16 +46,20 @@ public class Task {
 
 		executor = Executors.newScheduledThreadPool(1);
 		executor.scheduleAtFixedRate(() -> {
-			Point currentLocation = MouseInfo.getPointerInfo().getLocation();
+			try {
+				Point currentLocation = MouseInfo.getPointerInfo().getLocation();
 
-			if (location == null
-					|| (location.getX() == currentLocation.getX() && location.getY() == currentLocation.getY())) {
-				robot.setAutoDelay(40);
-				robot.keyPress(KeyEvent.VK_F13);
-				robot.mouseMove(random.nextInt(400), random.nextInt(400));
+				if (location == null
+						|| (location.getX() == currentLocation.getX() && location.getY() == currentLocation.getY())) {
+					robot.setAutoDelay(40);
+					robot.keyPress(KeyEvent.VK_F13);
+					robot.mouseMove(random.nextInt(400), random.nextInt(400));
+				}
+
+				location = MouseInfo.getPointerInfo().getLocation();
+			} catch(Throwable ex) {
+				ex.printStackTrace();
 			}
-
-			location = MouseInfo.getPointerInfo().getLocation();
 		}, 30, 30, TimeUnit.SECONDS);
 
 		return true;
