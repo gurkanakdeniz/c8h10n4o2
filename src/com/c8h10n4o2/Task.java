@@ -52,7 +52,10 @@ public class Task {
 				if (location == null
 						|| (location.getX() == currentLocation.getX() && location.getY() == currentLocation.getY())) {
 					robot.setAutoDelay(40);
-					robot.keyPress(KeyEvent.VK_F13);
+					
+					robot.keyPress(KeyEvent.VK_CONTROL);
+					robot.keyRelease(KeyEvent.VK_CONTROL);
+					
 					robot.mouseMove(random.nextInt(400), random.nextInt(400));
 				}
 
